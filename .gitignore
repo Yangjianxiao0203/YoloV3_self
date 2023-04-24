@@ -1,0 +1,8 @@
+#ignore model
+model_data/model1.pth
+
+#ignore data
+VOCdevkit/
+
+2007_train.txt
+2007_val.txt
