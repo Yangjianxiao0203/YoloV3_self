@@ -1,6 +1,3 @@
-# -------------------------------------#
-#       对数据集进行训练
-# -------------------------------------#
 import datetime
 import os
 
@@ -38,7 +35,7 @@ if __name__ == "__main__":
     Init_Epoch = 0
     Freeze_Epoch = 50
     Freeze_batch_size = 16
-    UnFreeze_Epoch = 300
+    UnFreeze_Epoch = 50
     Unfreeze_batch_size = 8
 
     Freeze_Train = True

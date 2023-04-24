@@ -5,6 +5,24 @@ from tqdm import tqdm
 
 from utils.utils import get_lr
 
+'''
+在每个epoch开始时，初始化训练损失（loss）和验证损失（val_loss）。
+切换模型为训练模式（model_train.train()）。
+遍历训练数据生成器（gen），取出每个批次的图像和目标（images和targets），并将它们移动到GPU上（如果使用GPU）。
+清零优化器的梯度（optimizer.zero_grad()）。
+使用16位浮点数（fp16）时，使用torch的autocast上下文进行前向传播。如果不使用16位浮点数，则直接进行前向传播。
+计算每个输出层的损失，并将它们累加起来（loss_value_all）。
+反向传播计算梯度。对于16位浮点数，使用scaler.scale()，否则直接调用.backward()方法。
+更新优化器：对于16位浮点数，使用scaler.step()和scaler.update()；否则直接使用optimizer.step()。
+将当前批次的损失累加到总损失上。
+如果是主进程（local_rank == 0），更新进度条。
+在每个epoch结束时，切换模型为验证模式（model_train.eval()）。
+遍历验证数据生成器（gen_val），执行类似的操作，但不更新优化器。只计算损失。
+如果是主进程（local_rank == 0），输出训练损失和验证损失。
+按照保存周期（save_period），保存模型权重。
+如果当前epoch的验证损失是最低的，则将当前模型权重保存为最佳模型权重。
+最后，将当前模型权重保存为上一个epoch的模型权重。
+'''
 
 def fit_one_epoch(model_train, model, yolo_loss, loss_history, eval_callback, optimizer, epoch, epoch_step, epoch_step_val, gen, gen_val, Epoch, cuda, fp16, scaler, save_period, save_dir, local_rank=0):
     loss        = 0
