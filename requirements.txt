@@ -7,3 +7,5 @@ torchvision
 tqdm
 Pillow
 h5py
+tensorboard
+pandas

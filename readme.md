@@ -2,19 +2,16 @@
 
 ## YoloV3
 ---------------------------------------------------------------------------
-Jianxiao Yang  
-yangjx@bu.edu  
-U77864846
 
 ### Requirements
 ---------------------------------------------------------------------------
 input size: 3 x 416 x 416  
 please run the following command to install the required packages:  
 `pip install -r requirements.txt`  
-### datasets
+### Datasets
 ---------------------------------------------------------------------------
 We use the VOC2007 dataset for training and testing.  
-dataset link: [here](https://drive.google.com/file/d/1Q5__3aoS56xpg00HGpck0_6o_jL78km8/view?usp=share_link).  
+Dataset link: [here](https://drive.google.com/file/d/1Q5__3aoS56xpg00HGpck0_6o_jL78km8/view?usp=share_link).  
 unzip that in your root directory, and run `python voc_annotation.py` to generate the training data.
 
 ### How to compile and run
