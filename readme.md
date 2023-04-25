@@ -29,6 +29,11 @@ The trained model will be saved in 'logs/' directory.
 
 For predicting: put all images in './img' and run `python predict.py` to predict the images. The results will be stored in "./img_out"  
 
+### Results
+Our models are stored in [here](https://drive.google.com/drive/folders/1WpumbrfeFMq6nxAoVmso9xDcwyGo38W2?usp=share_link)  
+Our test images are stored in `./img` and the results are in `./img_out`  
+
+
 ### Reference
 ---------------------------------------------------------------------------
 [https://github.com/bubbliiiing/yolo3-pytorch.git](https://github.com/bubbliiiing/yolo3-pytorch.git)
