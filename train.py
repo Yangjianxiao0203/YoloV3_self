@@ -30,7 +30,7 @@ if __name__ == "__main__":
     model_path = 'model_data/model1.pth'
 
     input_shape = [416, 416]
-    pretrained = False
+    pretrained = True
 
     Init_Epoch = 0
     Freeze_Epoch = 50

@@ -1,5 +1,7 @@
 #ignore model
 model_data/model1.pth
+*.pth
+logs/
 
 #ignore data
 VOCdevkit/
