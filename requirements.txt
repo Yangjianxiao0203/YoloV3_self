@@ -1,0 +1,11 @@
+scipy
+numpy
+matplotlib==3.1.2
+opencv_python
+torch
+torchvision
+tqdm
+Pillow
+h5py
+tensorboard
+pandas

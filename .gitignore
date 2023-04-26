@@ -1,8 +1,13 @@
 #ignore model
 model_data/model1.pth
+*.pth
+logs/
 
 #ignore data
 VOCdevkit/
 
 2007_train.txt
 2007_val.txt
+
+# map
+map_out/
