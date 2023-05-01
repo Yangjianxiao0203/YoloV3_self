@@ -1,6 +1,10 @@
 scipy
 numpy
+<<<<<<< HEAD
+matplotlib==3.1.2
+=======
 matplotlib
+>>>>>>> origin/master
 opencv_python
 torch
 torchvision

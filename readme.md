@@ -30,6 +30,10 @@ For predicting: put all images in './img' and run `python predict.py` to predict
 Our models are stored in [here](https://drive.google.com/drive/folders/1WpumbrfeFMq6nxAoVmso9xDcwyGo38W2?usp=share_link)  
 Our test images are stored in `./img` and the results are in `./img_out`  
 
+### Evaluation
+run `python get_map.py` to get the MAP of the model.
+
+
 
 ### Reference
 ---------------------------------------------------------------------------

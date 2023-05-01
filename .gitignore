@@ -8,3 +8,6 @@ VOCdevkit/
 
 2007_train.txt
 2007_val.txt
+
+# map
+map_out/
