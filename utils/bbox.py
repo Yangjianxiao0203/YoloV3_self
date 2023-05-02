@@ -84,11 +84,11 @@ class DecodeBox():
             anchor_w = anchor_w.repeat(batch_size, 1).repeat(1, 1, input_height * input_width).view(w.shape)
             anchor_h = anchor_h.repeat(batch_size, 1).repeat(1, 1, input_height * input_width).view(h.shape)
 
-            # ----------------------------------------------------------#
-            #   利用预测结果对先验框进行调整
-            #   首先调整先验框的中心，从先验框中心向右下角偏移
-            #   再调整先验框的宽高。
-            # ----------------------------------------------------------#
+            # -----------------------------------------------------------------#
+            # Use the predicted results to adjust the prior box
+            # 1. the center
+            # 2. the width and height of the a priori box.
+          
             pred_boxes = FloatTensor(prediction[..., :4].shape)
             pred_boxes[..., 0] = x.data + grid_x
             pred_boxes[..., 1] = y.data + grid_y
@@ -103,8 +103,8 @@ class DecodeBox():
 
     def yolo_correct_boxes(self, box_xy, box_wh, input_shape, image_shape, letterbox_image):
         # -----------------------------------------------------------------#
-        #   把y轴放前面是因为方便预测框和图像的宽高进行相乘
-        # -----------------------------------------------------------------#
+        # The y-axis is put in front because it is convenient to multiply the width and height of the predict box and the image
+   
         box_yx = box_xy[..., ::-1]
         box_hw = box_wh[..., ::-1]
         input_shape = np.array(input_shape)
@@ -112,9 +112,9 @@ class DecodeBox():
 
         if letterbox_image:
             # -----------------------------------------------------------------#
-            #   这里求出来的offset是图像有效区域相对于图像左上角的偏移情况
-            #   new_shape指的是宽高缩放情况
-            # -----------------------------------------------------------------#
+            
+            #   new_shape-----refers to the width and height scaling case
+            
             new_shape = np.round(image_shape * np.min(input_shape / image_shape))
             offset = (input_shape - new_shape) / 2. / input_shape
             scale = input_shape / new_shape
