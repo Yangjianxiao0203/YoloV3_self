@@ -131,10 +131,6 @@ class DecodeBox():
 
     def non_max_suppression(self, prediction, num_classes, input_shape, image_shape, letterbox_image, conf_thres=0.5,
                             nms_thres=0.4):
-        # ----------------------------------------------------------#
-        #   将预测结果的格式转换成左上角右下角的格式。
-        #   prediction  [batch_size, num_anchors, 85]
-        # ----------------------------------------------------------#
         box_corner = prediction.new(prediction.shape)
         box_corner[:, :, 0] = prediction[:, :, 0] - prediction[:, :, 2] / 2
         box_corner[:, :, 1] = prediction[:, :, 1] - prediction[:, :, 3] / 2
@@ -144,35 +140,18 @@ class DecodeBox():
 
         output = [None for _ in range(len(prediction))]
         for i, image_pred in enumerate(prediction):
-            # ----------------------------------------------------------#
-            #   对种类预测部分取max。
-            #   class_conf  [num_anchors, 1]    种类置信度
-            #   class_pred  [num_anchors, 1]    种类
-            # ----------------------------------------------------------#
             class_conf, class_pred = torch.max(image_pred[:, 5:5 + num_classes], 1, keepdim=True)
 
-            # ----------------------------------------------------------#
-            #   利用置信度进行第一轮筛选
-            # ----------------------------------------------------------#
             conf_mask = (image_pred[:, 4] * class_conf[:, 0] >= conf_thres).squeeze()
 
-            # ----------------------------------------------------------#
-            #   根据置信度进行预测结果的筛选
-            # ----------------------------------------------------------#
             image_pred = image_pred[conf_mask]
             class_conf = class_conf[conf_mask]
             class_pred = class_pred[conf_mask]
             if not image_pred.size(0):
                 continue
-            # -------------------------------------------------------------------------#
-            #   detections  [num_anchors, 7]
-            #   7的内容为：x1, y1, x2, y2, obj_conf, class_conf, class_pred
-            # -------------------------------------------------------------------------#
+
             detections = torch.cat((image_pred[:, :5], class_conf.float(), class_pred.float()), 1)
 
-            # ------------------------------------------#
-            #   获得预测结果中包含的所有种类
-            # ------------------------------------------#
             unique_labels = detections[:, -1].cpu().unique()
 
             if prediction.is_cuda:
@@ -180,9 +159,6 @@ class DecodeBox():
                 detections = detections.cuda()
 
             for c in unique_labels:
-                # ------------------------------------------#
-                #   获得某一类得分筛选后全部的预测结果
-                # ------------------------------------------#
                 detections_class = detections[detections[:, -1] == c]
                 keep = nms(
                     detections_class[:, :4],
@@ -223,13 +199,11 @@ if __name__ == '__main__':
 
     fig, ax = plt.subplots(1)
 
-    # 绘制边界框
     for bbox in outputs[0][0]:
         x1, y1, x2, y2 = bbox[:4]
         rect = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=1, edgecolor='r', facecolor='none')
         ax.add_patch(rect)
 
-    # 设置绘图参数
     ax.set_xlim(0, 416)
     ax.set_ylim(416, 0)
     plt.show()
