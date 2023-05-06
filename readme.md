@@ -10,7 +10,7 @@ please run the following command to install the required packages:
 `pip install -r requirements.txt`  
 ### Datasets
 ---------------------------------------------------------------------------
-We use the VOC2007 dataset for training and testing.  
+We used the VOC2007 dataset for training and testing.  
 Dataset link: [here](https://drive.google.com/file/d/1Q5__3aoS56xpg00HGpck0_6o_jL78km8/view?usp=share_link).  
 unzip that in your root directory, and run `python voc_annotation.py` to generate the training data.
 
